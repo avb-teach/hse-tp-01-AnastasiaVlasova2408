@@ -1,0 +1,5 @@
+#!/bin/bash
+
+find $1 -type f -exec cp {} $2 \;
+
+python3 main.py $1 $2 $3 $4
