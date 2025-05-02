@@ -15,9 +15,14 @@ os.makedirs(to_dir, exist_ok=True)
 file_counter = {}
 
 for root, _, files in os.walk(from_dir):
-    depth = root[len(from_dir):].count(os.sep)
+    relative_path = os.path.relpath(root, from_dir)
+    if relative_path == '.':
+        depth = 0
+    else:
+        depth = relative_path.count(os.sep) + 1
     if max_depth > 0 and depth > max_depth:
         continue
+
     for file in files:
         base, ext = os.path.splitext(file)
         count = file_counter.get(file, 0)
